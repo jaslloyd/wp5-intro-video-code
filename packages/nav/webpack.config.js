@@ -36,6 +36,7 @@ module.exports = {
     new ModuleFederationPlugin({
       // Unique Identifier for the module, will be used for import .... from [name]
       name: "nav",
+      // TBA
       library: { type: "var", name: "nav" },
       filename: "remoteEntry.js",
       // Other 'remote' that this module pulls from
