@@ -1,52 +1,52 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
 
 module.exports = {
-  entry: './src/index',
+  entry: "./src/index",
   cache: false,
 
-  mode: 'development',
-  devtool: 'source-map',
+  mode: "development",
+  devtool: "source-map",
 
   optimization: {
-    minimize: false
+    minimize: false,
   },
 
   output: {
-    publicPath: 'http://localhost:3002/'
+    publicPath: "http://localhost:3002/",
   },
 
   resolve: {
-    extensions: ['.jsx', '.js', '.json']
+    extensions: [".jsx", ".js", ".json"],
   },
 
   module: {
     rules: [
       {
         test: /\.jsx?$/,
-        loader: require.resolve('babel-loader'),
+        loader: require.resolve("babel-loader"),
         options: {
-          presets: [require.resolve('@babel/preset-react')]
-        }
-      }
-    ]
+          presets: [require.resolve("@babel/preset-react")],
+        },
+      },
+    ],
   },
 
   plugins: [
     new ModuleFederationPlugin({
-      name: 'search',
-      library: { type: 'var', name: 'search' },
-      filename: 'remoteEntry.js',
+      name: "search",
+      library: { type: "var", name: "search" },
+      filename: "remoteEntry.js",
       remotes: {
-        nav: 'nav'
+        nav: "nav",
+        home: "home",
       },
-      exposes: {
-      },
-      shared: ['react', 'react-dom', '@material-ui/core', '@material-ui/icons']
+      exposes: {},
+      shared: ["react", "react-dom", "@material-ui/core", "@material-ui/icons"],
     }),
     new HtmlWebpackPlugin({
-      template: './public/index.html',
-      chunks: ['main']
-    })
-  ]
+      template: "./public/index.html",
+      chunks: ["main"],
+    }),
+  ],
 };
